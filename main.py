@@ -5,19 +5,20 @@ mydb=mysql.connector.connect(host='localhost',user='root',password="Deepak4258@"
 
 
 def openacc():
-    user_id=input("emter the id")
-    name=input("enter the name:")
-    accnumber=input("enter the account number:")
-    user_dob=input("enter date of birth")
-    user_email=input("enter the your email")
-    datetime = datetime.datetime.now()
+    id=input("emter the id")
+    n=input("enter the name:")
+    ac=input("enter the account number:")
+    db=input("enter date of birth")
+    em=input("enter the your email")
+    ob=int(input("enter the opening balance: "))
+    dt = datetime.datetime.now()
     opeingbalnce=int(input("enter hte opeing balnce"))
-    data1=(user_id,name,accnumber,user_dob,user_email,datetime,opeingbalnce)
-    data2=(user_id,accnumber,opeingbalnce)
-    data3=(accnumber,user_id)
-    sql1=("insert into ACCOUNT values(%s,%s,%s,%s,%s,%s,%s)")
-    sql2=("insert into Bankaccount(%s,%s,%s)")
-    sql3=("insert into accountstatment (%s,%s)")
+    data1=(id,n,ac,db,em,dt,ob)
+    data2=(id,ac,ob)
+    data3=(ac,id)
+    sql1=('insert into ACCOUNT values(%s,%s,%s,%s,%s,%s,%s)')
+    sql2=('insert into Bankaccount(%s,%s,%s)')
+    sql3=('insert into accountstatment (%s,%s)')
     x=mydb.cursor()
     x.execute(sql1.data1)
     x.execute(sql2.data2)
@@ -26,58 +27,44 @@ def openacc():
     main()
 def depoammount():
     amount=input("enter the ammount you ant to deposite")
-    accnumber=input("enter the account number:")
+    ac=input("enter the account number:")
     a="select balance from amount where bankaccountnumber=%S"
-    data=(accnumber)
+    data=(ac,)
     x=mydb.cursor()
     x.execute(a.data)
     result=x.fetchone()
     t=result[0]+amount
     sql1=("update amount set balnce where ACCOUNT=%s")
-    d=(t.accnumber)
+    d=(t,ac)
+    x.excute(sql,d)
     mydb.commit()
     main()
-def   withdraw():
-    amount=input("enter the ammount you ant to withdraw")
-    accnumber=input("enter the account number:")
+def withdraw():
+    amount=input("enter the ammount you ant to withdraw: ")
+    ac=input("enter the account number:")
     a="select balance from amount where bankaccountnumber=%S"
-    data = (accnumber)
+    data = (ac)
     x = mydb.cursor()
-    x.execute(a.data)
+    x.execute(a,data)
     result = x.fetchone()
 
     t = result[0] - amount
     if t>5000:
         print("withdraw susefully")
         sql1 = ("update amount set balnce where ACCOUNT=%s")
-        d = (t.accnumber)
+        d = (t,ac)
         mydb.commit()
     else:
         print("you have to mainted minimum balance")
     main()
 def  balnceenq():
-    accnumber=input("enter the number no: ")
+    ac=input("enter the number no: ")
     a='select *from amount where bankaccountid=%s '
-    data=(ac,)
+    data=(a,)
     x=mydb.cursor()
-    x.execute(a.data)
+    x.execute(a,data)
     result=x.fetchone()
-    print("balance for account :",accnumber,"is",result[-1])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print("balance for account :",ac,"is",result[-1])
 
 
 def main():
